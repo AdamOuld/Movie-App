@@ -1,0 +1,94 @@
+<!-- index.html (Front-End) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main>
+<div id="content">
+
+
+<!-- Content from backend will be inserted here -->
+
+
+<h1>MOVIE SORTER</h1>
+
+
+
+
+<div id = "buttons">
+<div class = "option">
+<label for="algorithm">Algorithm:</label>
+<select id="algorithm" name="algorithm" class = 'selector'>
+<option value="mergesort">Mergesort</option>
+<option value="quicksort">Quicksort</option>
+<option value="filler">Insertion Sort</option>
+<option value="filler">Filler</option>
+</select>
+</div>
+
+
+<div class = "option">
+<label for="sort">Sort by:</label>
+<select id="sort" name="sort" class = "selector">
+<option value="title">Title</option>
+<option value="releasedate">Release Data</option>
+<option value="rating">Rating</option>
+<option value="filler">Filler</option>
+</select>
+</div>
+
+
+
+
+<button id="getDataBtn">Sort</button>
+
+
+
+
+
+
+</div>
+
+
+<div id = "results">
+
+
+</div>
+<!--
+<div class = "movie">
+<div class = "movie_img">
+<img src = "https://m.media-amazon.com/images/M/MV5BNDE3ODcxYzMtY2YzZC00NmNlLWJiNDMtZDViZWM2MzIxZDYwXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg">
+</div>
+<div class = "movie_info">
+<div class = "movie_name">
+jnnjnjn
+</div>
+<div id = "movie_rating">
+nnhbh
+</div>
+<div id = "movie_date">
+hbhbhb
+</div>
+<div id = "movie_genre">
+dvdv
+</div>
+</div>
+</div>
+
+
+-->
+
+
+
+
+</div>
+</main>
+</body>
+<script src = "{{ url_for('static', filename='test.js') }}"></script>
+
+
+</html>
