@@ -20,7 +20,7 @@ def sort_date(file):
     for i in range(1, len(movieList)):
         key = movieList[i]
         j = i - 1
-        while j >= 0 and datetime.strptime(key['datePublished'], '%Y-%m-%d') < datetime.strptime(movieList[j]['datePublished'], '%Y-%m-%d'):
+        while j >= 0 and datetime.strptime(key['datePublished'], '%Y-%m-%d') > datetime.strptime(movieList[j]['datePublished'], '%Y-%m-%d'):
             movieList[j + 1] = movieList[j]
             j -= 1
             movieList[j + 1] = key

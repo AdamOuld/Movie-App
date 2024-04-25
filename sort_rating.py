@@ -18,7 +18,7 @@ def sort_rating(file):
     for i in range(1, len(movieList)):
         key = movieList[i]
         j = i - 1
-        while j >= 0 and key['rating']['ratingValue'] < movieList[j]['rating']['ratingValue']:
+        while j >= 0 and key['rating']['ratingValue'] > movieList[j]['rating']['ratingValue']:
             movieList[j + 1] = movieList[j]
             j -= 1
             movieList[j + 1] = key

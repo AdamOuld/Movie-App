@@ -5,6 +5,7 @@ import json
 from sort import sort
 from sort_rating import sort_rating
 from sort_date import sort_date
+from sort_runtime import sort_runtime
 
 
 app = Flask(__name__)
@@ -40,6 +41,16 @@ def get_data_rating():
 @app.route('/api/data/date', methods=['GET'])
 def get_data_date():
     input = sort_date('static/data.json')
+    with open(input, 'r') as file:
+        json_data = json.load(file)
+    data = {'message': json_data}
+    return (data), "7"
+
+
+
+@app.route('/api/data/runtime', methods=['GET'])
+def get_data_runtime():
+    input = sort_runtime('static/data.json')
     with open(input, 'r') as file:
         json_data = json.load(file)
     data = {'message': json_data}
