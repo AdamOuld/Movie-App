@@ -1,21 +1,25 @@
 let btn = document.getElementById("getDataBtn");
-content = document.getElementById("content");
+let content = document.getElementById("content");
 let results = document.getElementById("results");
+let sortBy = document.getElementById("sort");
 
-btn.addEventListener("click", () => {
-  fetch("/api/data")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data["message"]);
-      // createMovieNode(data["message"][0])
-      // createMovieNode(data["message"][1])
-      for (let i = 0; i < data["message"].length; i++) {
-        createMovieNode(data["message"][i]);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+btn.addEventListener("click", async () => {
+  results.innerHTML = "";
+  let apiURL = "";
+  console.log(sortBy.value);
+  if (sortBy.value == "title") {
+    apiURL = "/api/data/name";
+  } else if (sortBy.value == "rating") {
+    apiURL = "/api/data/rating";
+  } else if (sortBy.value == "releasedate") {
+    apiURL = "/api/data/date";
+  }
+  console.log(apiURL);
+  const response = await fetch(apiURL);
+  const data = await response.json();
+  for (let i = 0; i < data["message"].length; i++) {
+    createMovieNode(data["message"][i]);
+  }
 });
 
 function createMovieNode(object) {
