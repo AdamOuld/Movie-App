@@ -3,11 +3,12 @@ from PyMovieDb import IMDB
 from search import search
 imdb = IMDB()
 import time
+import random
 
 from datetime import datetime
 
 
-def sort_date(file):
+def sort_date_i(file):
     with open(file) as f: #list of all the titles
         movieList = json.load(f)
 
@@ -32,6 +33,104 @@ def sort_date(file):
     for movie in movieList:
         jsonObj.append(movie)
 
+    jsonObj.append({'runtime' : abs(end_time - start_time) * 1000})
+
+
+    with open('sorted.json', 'w') as json_file:
+        json.dump(jsonObj, json_file,
+        indent=4,
+        separators=(',', ': '))
+        # return the sorted json file.
+        return 'sorted.json'
+    
+
+
+
+
+def sort_date_m(file):
+
+    with open(file) as f: #list of all the titles
+        movieList = json.load(f)
+
+
+    movieNameList = [obj['name'] for obj in movieList if 'name' in obj]
+
+
+    def merge_sort_helper(movieList):
+        if len(movieList) <= 1:
+            return movieList
+
+        mid = len(movieList) // 2
+        left_half = merge_sort_helper(movieList[:mid])
+        right_half = merge_sort_helper(movieList[mid:])
+
+        return merge(left_half, right_half)
+
+    def merge(left_half, right_half):
+        merged_list = []
+        left_index = right_index = 0
+
+        while left_index < len(left_half) and right_index < len(right_half):
+            if datetime.strptime(left_half[left_index]['datePublished'], '%Y-%m-%d') > datetime.strptime(right_half[right_index]['datePublished'], '%Y-%m-%d'):
+                merged_list.append(left_half[left_index])
+                left_index += 1
+            else:
+                merged_list.append(right_half[right_index])
+                right_index += 1
+
+        merged_list.extend(left_half[left_index:])
+        merged_list.extend(right_half[right_index:])
+        return merged_list
+
+    start_time = time.perf_counter()
+    movieList = merge_sort_helper(movieList)
+    end_time = time.perf_counter()
+
+    jsonObj = []
+    for movie in movieList:
+        jsonObj.append(movie)
+
+    jsonObj.append({'runtime' : abs(end_time - start_time) * 1000})
+
+
+    with open('sorted.json', 'w') as json_file:
+        json.dump(jsonObj, json_file,
+        indent=4,
+        separators=(',', ': '))
+        # return the sorted json file.
+        return 'sorted.json'
+    
+
+
+def sort_date_q(file):
+
+    with open(file) as f: #list of all the titles
+        movieList = json.load(f)
+
+
+    movieNameList = [obj['name'] for obj in movieList if 'name' in obj]
+
+    def quick_sort_helper(arr):
+        if len(arr) <= 1:
+            return arr
+        else:
+            pivot = random.choice(arr)  # Select a random pivot element
+            lesser = [x for x in arr if datetime.strptime(x['datePublished'], '%Y-%m-%d') > datetime.strptime(pivot['datePublished'], '%Y-%m-%d')]
+            equal = [x for x in arr if datetime.strptime(x['datePublished'], '%Y-%m-%d') == datetime.strptime(pivot['datePublished'], '%Y-%m-%d')]
+            greater = [x for x in arr if datetime.strptime(x['datePublished'], '%Y-%m-%d') < datetime.strptime(pivot['datePublished'], '%Y-%m-%d')]
+            return quick_sort_helper(lesser) + equal + quick_sort_helper(greater)
+        
+    start_time = time.perf_counter()
+    movieList = quick_sort_helper(movieList)
+    end_time = time.perf_counter()
+
+    
+
+    jsonObj = []
+    for movie in movieList:
+        jsonObj.append(movie)
+
+    jsonObj.append({'runtime' : abs(end_time - start_time) * 1000})
 
     with open('sorted.json', 'w') as json_file:
         json.dump(jsonObj, json_file,

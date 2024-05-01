@@ -2,6 +2,8 @@ let btn = document.getElementById("getDataBtn");
 let content = document.getElementById("content");
 let results = document.getElementById("results");
 let sortBy = document.getElementById("sort");
+let algorithm = document.getElementById("algorithm");
+let showRuntime = document.getElementById("algoRuntime");
 
 btn.addEventListener("click", async () => {
   results.innerHTML = "";
@@ -16,13 +18,17 @@ btn.addEventListener("click", async () => {
   } else {
     apiURL = "/api/data/runtime";
   }
+  apiURL = apiURL + "/" + algorithm.value;
 
   console.log(apiURL);
   const response = await fetch(apiURL);
   const data = await response.json();
-  for (let i = 0; i < data["message"].length; i++) {
+  for (let i = 0; i < data["message"].length - 1; i++) {
     createMovieNode(data["message"][i]);
   }
+  showRuntime.innerHTML = `The sort took ${
+    data["message"][data["message"].length - 1]["runtime"]
+  } ms to run.`;
 });
 
 function createMovieNode(object) {

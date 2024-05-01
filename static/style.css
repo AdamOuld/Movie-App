@@ -126,6 +126,14 @@
     height: 100%;
     border: solid 5px solid;
     }
+
+
+    #algoRuntime{
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+
+    }
     /* Styling for the options inside the select element */
     
     
